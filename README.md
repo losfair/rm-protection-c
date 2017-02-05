@@ -1,3 +1,5 @@
+![rm-protection-c logo](https://ooo.0o0.ooo/2017/02/05/58973ed995495.png)
+
 # What is this?
  `rm-protection-c` is another implementation of [rm-protection](https://github.com/alanzchen/rm-protection) in the C programming language.
  It is a safe alternative for removing file. It works exactly the same as `rm` (in fact it passes arguments to `rm` almost untouched).
