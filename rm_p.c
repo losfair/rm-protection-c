@@ -48,6 +48,7 @@ unsigned char ends_with(const char *str, const char *suffix)
 
 int main(int argc, char *argv[], char *envp[]) {
     size_t i, j, suffix_length, args_buf_pos;
+    unsigned char option_ended = 0;
     unsigned char *args_to_remove;
     char path_buf[PATH_MAX + 1], *buf, *dir_buf, cfg_path[PATH_MAX + 65];
     char **args_buf;
@@ -64,7 +65,12 @@ int main(int argc, char *argv[], char *envp[]) {
     suffix_length = strlen(CFG_SUFFIX);
 
     for(i = 1; i < argc; i++) {
-        if(argv[i][0] == '-') continue;
+        if(!option_ended && argv[i][0] == '-') {
+            if(strcmp(argv[i], "--") == 0) {
+                option_ended = 1;
+            }
+            continue;
+        }
         buf = realpath(argv[i], path_buf);
         if(!buf) {
             fprintf(stderr, "Warning: File not found: %s\n", argv[i]);
