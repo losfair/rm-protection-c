@@ -27,9 +27,6 @@
 # Requirements
 - Linux, unix or macOS (Currently, pre-compiled binaries are only available for Linux)
 
-# Known issues
-- Currently does not support protecting files whose name starts with "-".
-
 # How to contribute?
 Pull requests and issues are all welcome! Or tell others about this, so you can even `protect` the files you send to others!
 
