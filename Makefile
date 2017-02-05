@@ -20,6 +20,6 @@ protect: protect.o common.o
 	strip build/static/protect build/dynamic/protect
 
 rm-p: rm_p.o
-	$(CC) -o build/static/rm-p --static rm-p.o common.o
-	$(CC) -o build/dynamic/rm-p rm-p.o common.o
+	$(CC) -o build/static/rm-p --static rm_p.o common.o
+	$(CC) -o build/dynamic/rm-p rm_p.o common.o
 	strip build/static/rm-p build/dynamic/rm-p
