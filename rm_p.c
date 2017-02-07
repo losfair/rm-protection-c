@@ -91,8 +91,9 @@ int main(int argc, char *argv[], char *envp[]) {
 
         if(cfg_file) {
             if (!read_line(cfg_file, question, sizeof(question)) || !read_line(cfg_file, answer, sizeof(answer))) {
-                fprintf(stderr, "Error: File %s is coruptted!\n", cfg_path);
+                fprintf(stderr, "Error: File %s is corrupted!\n", cfg_path);
                 fclose(cfg_file);
+                args_to_remove[i] = 1;
                 continue;
             }
             fclose(cfg_file);
