@@ -2,8 +2,11 @@
 #define _RMP_COMMON_H_
 
 #include <stdio.h>
+#include <limits.h>
 
-#define PATH_MAX 65536
+#ifndef PATH_MAX
+#define PATH_MAX 4096
+#endif
 #define CFG_SUFFIX ".rm-protection"
 #define RM_PATH "/bin/rm"
 
