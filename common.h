@@ -9,6 +9,8 @@
 #endif
 #define CFG_SUFFIX ".rm-protection"
 #define RM_PATH "/bin/rm"
+#define MAX_QUESTION_LENGTH 512
+#define MAX_ANSWER_LENGTH 512
 
 extern const char *INVALID_PATH_LIST[];
 char * get_filename(const char *abs_path);

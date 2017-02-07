@@ -8,7 +8,7 @@ void try_protect(const char *path) {
     size_t i;
     const char **p;
     char *buf, full_path[PATH_MAX + 1], *full_dir, cfg_path[PATH_MAX + 65];
-    char question[512], answer[512];
+    char question[MAX_QUESTION_LENGTH], answer[MAX_ANSWER_LENGTH];
     FILE *cfg_file;
 
     for(p = INVALID_PATH_LIST; *p; p++) {

@@ -52,7 +52,7 @@ int main(int argc, char *argv[], char *envp[]) {
     char path_buf[PATH_MAX + 1], *buf, *dir_buf, cfg_path[PATH_MAX + 65];
     char **args_buf;
     FILE *cfg_file;
-    char question[512], answer[512], user_answer[512];
+    char question[MAX_QUESTION_LENGTH], answer[MAX_ANSWER_LENGTH], user_answer[MAX_ANSWER_LENGTH];
 
     if(argc < 2) {
         fprintf(stderr, "Nothing to remove\n");
