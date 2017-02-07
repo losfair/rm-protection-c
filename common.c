@@ -41,12 +41,22 @@ char * get_dir(const char *abs_path) {
     return dir;
 }
 
-void read_line(FILE *src, char *str, int max_len) {
-    int i;
+int read_line(FILE *src, char *str, size_t max_len) {
+    size_t i;
+    int ch;
 
     for(i = 0; i < max_len; i++) {
-        str[i] = fgetc(src);
-        if(str[i] <= 0 || str[i] == '\n') break;
+        ch = fgetc(src);
+        if(ch == EOF || ch == '\n') {
+            str[i] = 0;
+            break;
+        }
+        str[i] = ch;
     }
-    str[i] = 0;
+    if (i >= max_len) {
+        // clear stdin buffer
+        while ((ch = fgetc(src)) != '\n' && ch != EOF) { };
+        return 0;
+    }
+    return 1;
 }

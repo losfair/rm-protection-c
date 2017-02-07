@@ -10,6 +10,6 @@
 extern const char *INVALID_PATH_LIST[];
 char * get_filename(const char *abs_path);
 char * get_dir(const char *abs_path);
-void read_line(FILE *src, char *str, int max_len);
+int read_line(FILE *src, char *str, size_t max_len);
 
 #endif
