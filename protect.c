@@ -6,10 +6,9 @@
 
 void try_protect(const char *path) {
     size_t i;
-    char ch;
     const char **p;
     char *buf, full_path[PATH_MAX + 1], *full_dir, cfg_path[PATH_MAX + 65];
-    char question[512], answer[512];
+    char question[MAX_QUESTION_LENGTH], answer[MAX_ANSWER_LENGTH];
     FILE *cfg_file;
 
     for(p = INVALID_PATH_LIST; *p; p++) {
@@ -34,22 +33,23 @@ void try_protect(const char *path) {
         return;
     }
 
-    printf("Question for %s: ", full_path);
-
-    for(i = 0; i < 512; i++) {
-        ch = getchar();
-        if(ch <= 0 || ch == '\n') break;
-        question[i] = ch;
+    while(1) {
+        printf("Question for %s: ", full_path);
+        if (!read_line(stdin, question, sizeof(question))) {
+            fprintf(stderr, "Question is too long. Try another one.\n");
+        } else {
+            break;
+        }
     }
-    question[i] = 0;
 
-    printf("Answer: ");
-    for(i = 0; i < 512; i++) {
-        ch = getchar();
-        if(ch <= 0 || ch == '\n') break;
-        answer[i] = ch;
+    while(1) {
+        printf("Answer: ");
+        if (!read_line(stdin, answer, sizeof(answer))) {
+            fprintf(stderr, "Answer is too long. Try another one.\n");
+        } else {
+            break;
+        }
     }
-    answer[i] = 0;
 
     fprintf(cfg_file, "%s\n%s", question, answer);
     fclose(cfg_file);

@@ -16,11 +16,10 @@ unsigned char input_and_verify() {
     char input[4];
     int i;
 
-    for(i = 0; i < 3; i++) {
-        input[i] = getchar();
-        if(input[i] <= 0 || input[i] == '\n') break;
+
+    if (!read_line(stdin, input, sizeof(input))) {
+        return 0;
     }
-    input[i] = 0;
     strtolower(input);
 
     if(
@@ -53,7 +52,7 @@ int main(int argc, char *argv[], char *envp[]) {
     char path_buf[PATH_MAX + 1], *buf, *dir_buf, cfg_path[PATH_MAX + 65];
     char **args_buf;
     FILE *cfg_file;
-    char question[512], answer[512], user_answer[512];
+    char question[MAX_QUESTION_LENGTH], answer[MAX_ANSWER_LENGTH], user_answer[MAX_ANSWER_LENGTH];
 
     if(argc < 2) {
         fprintf(stderr, "Nothing to remove\n");
@@ -91,15 +90,18 @@ int main(int argc, char *argv[], char *envp[]) {
         cfg_file = fopen(cfg_path, "r");
 
         if(cfg_file) {
-            read_line(cfg_file, question, 512);
-            read_line(cfg_file, answer, 512);
+            if (!read_line(cfg_file, question, sizeof(question)) || !read_line(cfg_file, answer, sizeof(answer))) {
+                fprintf(stderr, "Error: File %s is corrupted!\n", cfg_path);
+                fclose(cfg_file);
+                args_to_remove[i] = 1;
+                continue;
+            }
             fclose(cfg_file);
 
             printf("%s: %s\n", path_buf, question);
             printf("Answer: ");
-            read_line(stdin, user_answer, 512);
-
-            if(strcmp(user_answer, answer) != 0) {
+            
+            if(!read_line(stdin, user_answer, sizeof(user_answer)) || strcmp(user_answer, answer) != 0) {
                 printf("Wrong answer! %s will not be removed\n", path_buf);
                 printf("The correct answer is stored in %s\n", cfg_path);
                 args_to_remove[i] = 1;
