@@ -1,9 +1,10 @@
 CFLAGS := -O3
 
 all:
-	make protect
-	make rm-p
+	make build
 	make release
+
+build: protect rm-p
 
 release:
 	rm -f build/build.tar.xz | true
